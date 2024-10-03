@@ -45,11 +45,9 @@ def get_sheet_data(worksheet, skip_header=True):
     
     return data
 
-
 # Função para atualizar uma célula específica
 def update_sheet_cell(worksheet, cell, value):
     """Função para atualizar uma célula específica em uma planilha."""
-    print(cell, value)
     worksheet.update(cell, [[value]])  # Atualiza a célula, passando o valor dentro de uma lista
 
 # Função para adicionar uma linha no final da planilha
@@ -60,7 +58,7 @@ def append_row_to_sheet(worksheet, row_data):
 # Função para limpar os dados da planilha de Baixa de Estoque
 def clear_sheet_data(worksheet):
     """Função para limpar os dados de uma planilha, exceto o cabeçalho."""
-    worksheet.batch_clear(['A2:F'])  # Limpa as linhas de dados, mantendo o cabeçalho
+    worksheet.batch_clear(['A2:E'])  # Limpa as linhas de dados, mantendo o cabeçalho
 
 # Função principal de processamento de baixa de estoque
 def processar_baixa_estoque():
@@ -74,26 +72,25 @@ def processar_baixa_estoque():
     estoque = get_sheet_data(estoque_worksheet)  # Exemplo: Estoque na planilha 1
     
     for baixa in baixas:
-        data_hora, responsavel, categoria_baixa, nome_baixa, quantidade_baixa, justificativa = baixa
+        data_hora, responsavel, nome_baixa, quantidade_baixa, justificativa = baixa
         quantidade_baixa = int(quantidade_baixa)
 
         # Encontra o item correspondente no estoque
         for i, item in enumerate(estoque):
-            categoria_estoque, nome_estoque, quantidade_estoque = item
-            if categoria_estoque == categoria_baixa and nome_estoque == nome_baixa:
+            nome_estoque, quantidade_estoque = item
+            if nome_estoque == nome_baixa:
                 nova_quantidade = int(quantidade_estoque) - quantidade_baixa
-               
 
                 if nova_quantidade < 0:
                     logging.error(f"Erro: Estoque insuficiente para {nome_baixa}.")
                     continue
 
                 # Atualiza a quantidade no estoque
-                update_sheet_cell(estoque_worksheet, f'C{i+2}', nova_quantidade)
+                update_sheet_cell(estoque_worksheet, f'B{i+2}', nova_quantidade)
                 logging.info(f'Item {nome_baixa}: Quantidade retirada = {quantidade_baixa}, Nova quantidade = {nova_quantidade}.')
 
                 # Adiciona ao histórico
-                historico_entry = [data_hora, responsavel, categoria_baixa, nome_baixa, quantidade_baixa, justificativa]
+                historico_entry = [data_hora, responsavel, nome_baixa, quantidade_baixa, justificativa]
                 append_row_to_sheet(historico_worksheet, historico_entry)
                 break
         else:
