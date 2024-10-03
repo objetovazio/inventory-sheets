@@ -1,4 +1,0 @@
-2024-10-02 21:20:18,101 - INFO - Iniciando o processamento de baixa de estoque.
-2024-10-02 21:20:21,671 - INFO - Item Camisa Vermelha: Quantidade retirada = 5, Nova quantidade = 8.
-2024-10-02 21:20:22,011 - ERROR - Item Caneta Azul não encontrado no estoque.
-2024-10-02 21:20:22,312 - INFO - Processamento de baixa de estoque concluído com sucesso.

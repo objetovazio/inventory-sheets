@@ -1,1 +1,0 @@
-2024-10-02 21:17:30,262 - INFO - Iniciando o processamento de baixa de estoque.

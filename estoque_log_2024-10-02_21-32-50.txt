@@ -1,3 +1,0 @@
-2024-10-02 21:32:50,668 - INFO - Iniciando o processamento de baixa de estoque.
-2024-10-02 21:32:55,411 - INFO - Item Arroz Integral: Quantidade retirada = 10, Nova quantidade = 190.
-2024-10-02 21:32:56,033 - INFO - Processamento de baixa de estoque concluído com sucesso.

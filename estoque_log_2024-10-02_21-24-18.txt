@@ -1,3 +1,0 @@
-2024-10-02 21:24:18,821 - INFO - Iniciando o processamento de baixa de estoque.
-2024-10-02 21:24:22,212 - INFO - Item Caneta Azul: Quantidade retirada = 100, Nova quantidade = 200.
-2024-10-02 21:24:22,855 - INFO - Processamento de baixa de estoque concluído com sucesso.

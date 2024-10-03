@@ -1,2 +1,0 @@
-2024-10-02 21:15:50,622 - INFO - Iniciando o processamento de baixa de estoque.
-2024-10-02 21:15:54,784 - INFO - Item Camisa Vermelha: Quantidade retirada = 5, Nova quantidade = 8.
