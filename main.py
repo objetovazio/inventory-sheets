@@ -1,14 +1,23 @@
 import logging
 import datetime
+import os
 import gspread
 from google.oauth2.service_account import Credentials
+from send_log import send_log_to_group
 
 # Gera um nome de arquivo com a data e hora atuais
 log_filename = datetime.datetime.now().strftime('estoque_log_%Y-%m-%d_%H-%M-%S.txt')
 
+# Cria a pasta Logs, caso não exista
+log_dir = "Logs"
+os.makedirs(log_dir, exist_ok=True)
+
+# Caminho completo do arquivo de log
+log_filepath = os.path.join(log_dir, log_filename)
+
 # Configuração do logger
 logging.basicConfig(
-    filename=log_filename,  # Nome do arquivo inclui a data e hora
+    filename=log_filepath,  # Salva o arquivo na pasta Logs
     level=logging.INFO,      # Nível de log
     format='%(asctime)s - %(levelname)s - %(message)s'  # Formato da mensagem de log
 )
@@ -17,13 +26,13 @@ logging.info('Iniciando o processamento de baixa de estoque.')
 
 # Autenticação com a API Google usando gspread
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-creds = Credentials.from_service_account_file('credentials.json', scopes=SCOPES)
+creds = Credentials.from_service_account_file('chaveDeAcesso-GoogleCloud.json', scopes=SCOPES)
 gc = gspread.authorize(creds)
 
 # IDs das planilhas (obter da URL)
-ESTOQUE_SHEET_ID = '1B-jXS2Pexjj5YiaEWtOVUYRHd0djbo4Zru33juch9BU'
-BAIXA_SHEET_ID = '1B-jXS2Pexjj5YiaEWtOVUYRHd0djbo4Zru33juch9BU'
-HISTORICO_SHEET_ID = '1B-jXS2Pexjj5YiaEWtOVUYRHd0djbo4Zru33juch9BU'
+ESTOQUE_SHEET_ID = 'Fim da URL'
+BAIXA_SHEET_ID = 'Fim da URL'
+HISTORICO_SHEET_ID = 'Fim da URL'
 
 # Função para acessar uma planilha específica por ID e aba
 def get_worksheet(sheet_id, sheet_name):
@@ -102,3 +111,4 @@ def processar_baixa_estoque():
 
 # Chama a função principal
 processar_baixa_estoque()
+send_log_to_group()
