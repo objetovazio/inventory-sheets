@@ -9,7 +9,7 @@ from send_log import send_log_to_group
 log_filename = datetime.datetime.now().strftime('estoque_log_%Y-%m-%d_%H-%M-%S.txt')
 
 # Cria a pasta Logs, caso não exista
-log_dir = "Logs"
+log_dir = "logs"
 os.makedirs(log_dir, exist_ok=True)
 
 # Caminho completo do arquivo de log
