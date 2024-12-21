@@ -5,7 +5,7 @@ import telebot
 BOT_TOKEN = 'Token do seu bot'
 
 # ID do grupo
-GROUP_ID = '-ID do seu Grupo'
+GROUP_ID = 'ID do seu Grupo'
 
 # Inicializa o bot
 bot = telebot.TeleBot(BOT_TOKEN)
@@ -42,8 +42,8 @@ def send_log_to_group():
         return
 
     try:
-        bot.send_message(GROUP_ID, f"Atualização de Log:\n\n{log_content}")
-        print(f"Log enviado com sucesso para o grupo {GROUP_ID}.")
+        bot.send_message(GROUP_ID, f"{log_content}")
+        print(f"Log enviado com sucesso via Telegram.")
     except Exception as e:
         print(f"Erro ao enviar mensagem para o grupo: {e}")
 

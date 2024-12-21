@@ -19,10 +19,10 @@ log_filepath = os.path.join(log_dir, log_filename)
 logging.basicConfig(
     filename=log_filepath,  # Salva o arquivo na pasta Logs
     level=logging.INFO,      # Nível de log
-    format='%(asctime)s - %(levelname)s - %(message)s'  # Formato da mensagem de log
+    format='%(message)s'  # Formato da mensagem de log
 )
 
-logging.info('Iniciando o processamento de baixa de estoque.')
+logging.info('Started')
 
 # Autenticação com a API Google usando gspread
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
@@ -44,14 +44,14 @@ def get_worksheet(sheet_id, sheet_name):
 def get_sheet_data(worksheet, skip_header=True):
     """Função para pegar os dados de uma planilha, ignorando o cabeçalho e linhas vazias."""
     data = worksheet.get_all_values()
-    
+
     # Se `skip_header` for True, ignora a primeira linha (cabeçalho)
     if skip_header:
         data = data[1:]
-    
+
     # Filtra as linhas vazias
     data = [row for row in data if any(cell.strip() for cell in row)]
-    
+
     return data
 
 # Função para atualizar uma célula específica
@@ -79,7 +79,7 @@ def processar_baixa_estoque():
     # Pega os dados da planilha de Baixa de Estoque e do Estoque
     baixas = get_sheet_data(baixa_worksheet)  # Exemplo: Baixas na planilha 2
     estoque = get_sheet_data(estoque_worksheet)  # Exemplo: Estoque na planilha 1
-    
+
     for baixa in baixas:
         data_hora, responsavel, nome_baixa, quantidade_baixa, justificativa = baixa
         quantidade_baixa = int(quantidade_baixa)
@@ -96,7 +96,7 @@ def processar_baixa_estoque():
 
                 # Atualiza a quantidade no estoque
                 update_sheet_cell(estoque_worksheet, f'B{i+2}', nova_quantidade)
-                logging.info(f'Item {nome_baixa}: Quantidade retirada = {quantidade_baixa}, Nova quantidade = {nova_quantidade}.')
+                logging.info(f'• O item "{nome_baixa}" teve {quantidade_baixa} unidade(s) retirada(s). Quantidade atual: {nova_quantidade}.')
 
                 # Adiciona ao histórico
                 historico_entry = [data_hora, responsavel, nome_baixa, quantidade_baixa, justificativa]
@@ -107,7 +107,7 @@ def processar_baixa_estoque():
 
     # Limpa os dados processados da planilha de Baixa
     clear_sheet_data(baixa_worksheet)
-    logging.info('Processamento de baixa de estoque concluído com sucesso.')
+    logging.info('Completed')
 
 # Chama a função principal
 processar_baixa_estoque()
