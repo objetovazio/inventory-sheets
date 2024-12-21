@@ -4,6 +4,7 @@ import os
 import gspread
 from google.oauth2.service_account import Credentials
 from send_log import send_log_to_group
+from credentials import ESTOQUE_SHEET_ID, BAIXA_SHEET_ID, HISTORICO_SHEET_ID
 
 # Gera um nome de arquivo com a data e hora atuais
 log_filename = datetime.datetime.now().strftime('estoque_log_%Y-%m-%d_%H-%M-%S.txt')
@@ -28,11 +29,6 @@ logging.info('Started')
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 creds = Credentials.from_service_account_file('chaveDeAcesso-GoogleCloud.json', scopes=SCOPES)
 gc = gspread.authorize(creds)
-
-# IDs das planilhas (obter da URL)
-ESTOQUE_SHEET_ID = 'Fim da URL'
-BAIXA_SHEET_ID = 'Fim da URL'
-HISTORICO_SHEET_ID = 'Fim da URL'
 
 # Função para acessar uma planilha específica por ID e aba
 def get_worksheet(sheet_id, sheet_name):

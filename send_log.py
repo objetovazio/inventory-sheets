@@ -1,11 +1,6 @@
 import os
 import telebot
-
-# Token do bot
-BOT_TOKEN = 'Token do seu bot'
-
-# ID do grupo
-GROUP_ID = 'ID do seu Grupo'
+from credentials import BOT_TOKEN, GROUP_ID
 
 # Inicializa o bot
 bot = telebot.TeleBot(BOT_TOKEN)
